@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a6gp.dev/schema/envelope-v0.4.json",
+  "title": "A6GP JSON Envelope v0.4",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocolVersion","messageType","messageId","sender","receiver","sentAt","expiresAt","timingClass","riskClass","tenant","bodyHash","hashAlg","signatureAlg","keyId","criticalExtensions","extensions","negotiated","signature","body"],
+  "properties": {
+    "protocolVersion":{"const":"0.4"}, "messageType":{"type":"string"}, "messageId":{"type":"string"},
+    "correlationId":{"type":"string"}, "transactionId":{"type":"string"}, "sender":{"type":"string"}, "receiver":{"type":"string"},
+    "sentAt":{"type":"integer"}, "expiresAt":{"type":"integer"}, "timingClass":{"enum":["T0","T1","T2","T3","T4"]},
+    "riskClass":{"enum":["R0","R1","R2","R3"]}, "tenant":{"type":"string"}, "contractId":{"type":"string"},
+    "contractRevision":{"type":"integer","minimum":1}, "topologyVersion":{"type":"string"}, "leaseId":{"type":"string"},
+    "idempotencyKey":{"type":"string"}, "bodyHash":{"type":"string","pattern":"^sha256:[0-9a-f]{64}$"},
+    "hashAlg":{"const":"sha-256"}, "signatureAlg":{"const":"Ed25519"}, "keyId":{"type":"string"},
+    "criticalExtensions":{"type":"array","items":{"type":"string"},"uniqueItems":true}, "extensions":{"type":"object"},
+    "negotiated":{"type":"object","required":["protocolVersion","profiles","extensions","binding"],"properties":{"protocolVersion":{"type":"string"},"profiles":{"type":"array","items":{"type":"string"}},"extensions":{"type":"array","items":{"type":"string"}},"binding":{"type":"string"}},"additionalProperties":false},
+    "signature":{"type":"string"}, "body":{}
+  }
+}

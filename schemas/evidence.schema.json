@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a6gp.dev/schema/evidence-v0.4.json",
+  "title": "A6GP Evidence v0.4",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["evidenceId","contractId","kind","source","sourceClass","tenant","resource","timeWindow","measurementContract","verdict","strength","artifactHash","createdAt"],
+  "properties": {
+    "evidenceId":{"type":"string"}, "contractId":{"type":"string"}, "actionId":{"type":"string"},
+    "kind":{"type":"string"}, "source":{"type":"string"},
+    "sourceClass":{"enum":["executor","telemetry","probe","attestation","twin","operator"]},
+    "tenant":{"type":"string"}, "resource":{"type":"string"},
+    "timeWindow":{"type":"array","minItems":2,"maxItems":2,"items":{"type":"string","format":"date-time"}},
+    "measurementContract":{"type":"string"}, "verdict":{"enum":["PASS","FAIL","UNKNOWN"]},
+    "strength":{"type":"number","minimum":0,"maximum":1}, "artifactHash":{"type":"string"},
+    "createdAt":{"type":"string","format":"date-time"}
+  }
+}

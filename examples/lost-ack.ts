@@ -1,0 +1,21 @@
+import { A6GPRuntime, InMemoryIdempotentExecutor, type ActionSpec, type IntentContract } from "../src/index.ts";
+
+const future = (ms: number) => new Date(Date.now() + ms).toISOString();
+const executor = new InMemoryIdempotentExecutor();
+const runtime = new A6GPRuntime(executor);
+const tenant = "operator-a";
+const site = "ran:operator-a/region-west/site-17";
+const cell = `${site}/cell-3`;
+runtime.registerPrincipal({ agentId:"agent:operator-a:ran-1", principalType:"RAN", tenant, operatorDomain:"west", identityKeyId:"k1", trustTier:"TIER_2", status:"ACTIVE", capabilityDescriptorHash:"sha256:cap" });
+const contract: IntentContract = { contractId:"ctr-lost-ack", revision:1, tenant, goal:"safe handover tuning", scope:[site], hardConstraints:[], allowedActions:["ran.handover.bias.update"], riskClass:"R1", timingClass:"T2", evidencePolicy:["handover-window"], minimumEvidenceStrength:0.9, minimumIndependentSources:1, fallbackPolicy:"last-known-good", validUntil:future(120000), state:"ACTIVE" };
+runtime.createAndActivateContract(contract);
+runtime.observe({ targetScope:cell, topologyVersion:"topo-1", policyVersion:"policy-1", preconditionSnapshotHash:"sha256:p1", observedAt:new Date().toISOString() });
+const lease = runtime.grantLease({ subject:"agent:operator-a:ran-1", tenant, scope:[site], actionSet:["ran.handover.bias.update"], riskCeiling:"R1", validUntil:future(60000) });
+const action: ActionSpec = { actionId:"act-lost-ack", contractId:contract.contractId, contractRevision:1, tenant, actor:lease.subject, targetAuthorityDomain:"ran-west", targetScope:cell, actionType:"ran.handover.bias.update", parameters:{biasDb:2}, riskClass:"R1", timingClass:"T2", idempotencyKey:"ho-bias-001", topologyVersion:"topo-1", policyVersion:"policy-1", preconditionSnapshotHash:"sha256:p1" };
+executor.injectLostAckFor(action);
+runtime.transactions.prepare(action, lease.leaseId);
+runtime.transactions.authorize(action.actionId);
+console.log("commit outcome:", (await runtime.transactions.commit(action.actionId)).state);
+console.log("physical apply count:", executor.applyCount());
+console.log("reconcile outcome:", (await runtime.transactions.reconcile(action.actionId)).state);
+console.log("physical apply count after reconcile:", executor.applyCount());
