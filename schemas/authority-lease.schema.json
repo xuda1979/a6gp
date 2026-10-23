@@ -6,6 +6,7 @@
   "additionalProperties": false,
   "required": ["leaseId","subject","tenant","scope","actionSet","riskCeiling","validUntil","constraints","nonce","issuedAt","chainHash"],
   "properties": {
+    "contractId":{"type":"string","minLength":1},
     "leaseId":{"type":"string"}, "subject":{"type":"string"}, "tenant":{"type":"string"},
     "scope":{"type":"array","minItems":1,"items":{"type":"string"},"uniqueItems":true},
     "actionSet":{"type":"array","minItems":1,"items":{"type":"string"},"uniqueItems":true},

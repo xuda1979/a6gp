@@ -81,6 +81,7 @@ export class ActionTransactionManager {
       action.actionType,
       action.riskClass,
       now,
+      action.contractId,
     );
     this.snapshots.assertBinding(
       action.targetScope,
@@ -132,6 +133,7 @@ export class ActionTransactionManager {
       action.actionType,
       action.riskClass,
       now,
+      action.contractId,
     );
     this.snapshots.assertBinding(action.targetScope, action.topologyVersion, action.policyVersion, action.preconditionSnapshotHash);
     invariant(record.actionHash === actionHash(action), "AUTH_HASH_MISMATCH", "action mutated after prepare");
@@ -186,10 +188,12 @@ export class ActionTransactionManager {
     try {
       result = await this.executor.ensure(record.action, record.actionHash);
     } catch (error) {
-      if (error instanceof A6GPError) throw error;
       record.state = "UNKNOWN";
       record.lastError = error instanceof Error ? error.message : String(error);
       record.updatedAt = new Date().toISOString();
+      // Even a typed adapter exception must not strand an in-flight action in COMMITTING.
+      // A remote adapter may have applied an effect before raising it; preserve ambiguity.
+      if (error instanceof A6GPError) throw error;
       return structuredClone(record);
     }
     if (result.status === "SUCCEEDED") {
@@ -300,6 +304,7 @@ export class ActionTransactionManager {
       record.action.actionType,
       record.action.riskClass,
       now,
+      record.action.contractId,
     );
     invariant(lease.chainHash === auth.leaseChainHash, "LEASE_CHAIN_INVALID", "lease chain changed after authorization");
     const contract = this.contracts.assertAction(

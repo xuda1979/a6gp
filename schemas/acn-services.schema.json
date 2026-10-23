@@ -1,0 +1,578 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a6gp.dev/schema/acn-services-v1.json",
+  "title": "A6GP ACN Services v1 Tool Call",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.agent.discover"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {
+            "capabilities": {
+              "type": "array"
+            }
+          }
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.peer.resolve"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "agentId"
+          ],
+          "properties": {
+            "agentId": {
+              "type": "string"
+            }
+          }
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments",
+        "idempotencyKey"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.group.configure"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "expectedRevision",
+            "members",
+            "linkScope",
+            "modalities",
+            "direction",
+            "qos"
+          ],
+          "properties": {
+            "expectedRevision": {
+              "type": "number"
+            },
+            "members": {
+              "type": "array"
+            },
+            "linkScope": {
+              "type": "string"
+            },
+            "modalities": {
+              "type": "array"
+            },
+            "direction": {
+              "type": "string"
+            },
+            "qos": {
+              "type": "object"
+            }
+          }
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.group.read"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {}
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments",
+        "idempotencyKey"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.group.release"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "expectedRevision"
+          ],
+          "properties": {
+            "expectedRevision": {
+              "type": "number"
+            }
+          }
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments",
+        "idempotencyKey"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.compute.reserve"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workUnits",
+            "computeUnits",
+            "memoryMb",
+            "uploadMbit",
+            "downloadMbit",
+            "uplinkMbps",
+            "downlinkMbps",
+            "deadlineMs",
+            "maxCost"
+          ],
+          "properties": {
+            "workUnits": {
+              "type": "number"
+            },
+            "computeUnits": {
+              "type": "number"
+            },
+            "memoryMb": {
+              "type": "number"
+            },
+            "uploadMbit": {
+              "type": "number"
+            },
+            "downloadMbit": {
+              "type": "number"
+            },
+            "uplinkMbps": {
+              "type": "number"
+            },
+            "downlinkMbps": {
+              "type": "number"
+            },
+            "deadlineMs": {
+              "type": "number"
+            },
+            "maxCost": {
+              "type": "number"
+            }
+          }
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.compute.read"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {}
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments",
+        "idempotencyKey"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.compute.release"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {}
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments",
+        "idempotencyKey"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.data.capture"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "payloadBase64",
+            "modality",
+            "retentionUntil"
+          ],
+          "properties": {
+            "payloadBase64": {
+              "type": "string"
+            },
+            "modality": {
+              "type": "string"
+            },
+            "retentionUntil": {
+              "type": "string"
+            }
+          }
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments",
+        "idempotencyKey"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.data.process"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "expectedRevision",
+            "transform",
+            "removeFields"
+          ],
+          "properties": {
+            "expectedRevision": {
+              "type": "number"
+            },
+            "transform": {
+              "type": "string"
+            },
+            "removeFields": {
+              "type": "array"
+            }
+          }
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments",
+        "idempotencyKey"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.data.store"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "expectedRevision"
+          ],
+          "properties": {
+            "expectedRevision": {
+              "type": "number"
+            }
+          }
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments",
+        "idempotencyKey"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.data.share"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "expectedRevision",
+            "readerIds"
+          ],
+          "properties": {
+            "expectedRevision": {
+              "type": "number"
+            },
+            "readerIds": {
+              "type": "array"
+            }
+          }
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments",
+        "idempotencyKey"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.data.delete"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "expectedRevision"
+          ],
+          "properties": {
+            "expectedRevision": {
+              "type": "number"
+            }
+          }
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "targetScope",
+        "arguments"
+      ],
+      "properties": {
+        "name": {
+          "const": "acn.data.read"
+        },
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {}
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "networkStateContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "targetScope",
+        "topologyVersion",
+        "policyVersion",
+        "preconditionSnapshotHash",
+        "observedAt",
+        "source"
+      ],
+      "properties": {
+        "targetScope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "topologyVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policyVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "preconditionSnapshotHash": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
