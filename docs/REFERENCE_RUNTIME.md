@@ -23,3 +23,7 @@ The reference runtime implements protocol semantics without depending on any spe
 - contract close requires independent evidence;
 - revoked authority invalidates outstanding authorization;
 - model outage must not remove deterministic fallback.
+
+## ACN Services v1 extension
+
+The optional `src/acn/` layer implements capability discovery, governed peer endpoint resolution, task groups and shared link accounting, joint network/compute admission, a bounded data lifecycle, structured task decomposition, and fourteen network tools. `createACNRuntime(existingExecutor?)` composes these services with the original external adapter path. All built-in mutations require the matching core transaction in COMMITTING, an explicitly task-bound lease, and fresh target observations. See [ACN_SERVICES.md](ACN_SERVICES.md) and the [Chinese requirement mapping](ACN_REQUIREMENTS_CN.md).

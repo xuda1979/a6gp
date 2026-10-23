@@ -20,6 +20,7 @@ export interface AgentPrincipal {
   trustTier: string;
   status: "ACTIVE" | "REVOKED" | "QUARANTINED";
   capabilityDescriptorHash: string;
+  userId?: string;
 }
 
 export interface IntentContract {
@@ -45,6 +46,7 @@ export interface AuthorityLease {
   leaseId: string;
   subject: string;
   tenant: string;
+  contractId?: string;
   scope: string[];
   actionSet: string[];
   riskCeiling: RiskClass;

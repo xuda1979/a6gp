@@ -1,0 +1,128 @@
+{
+  "reportDate": "2026-10-23",
+  "generatedAtUTC": "2026-10-23T09:17:14.404754+00:00",
+  "coreProtocolVersion": "0.4",
+  "extension": "ACN Services v1",
+  "packageVersion": "0.4.1",
+  "baseCommit": "7d0bc6747f94db804c75c934368478ff088ca7db",
+  "requirementSource": {
+    "filename": "202508-智能体通信网络ACN-6G网络新变革-0820-final.key",
+    "sha256": "ac0b4232ced8bab6fa878c1f371366100740f490fe6c46641cb3c3d8881c59a3"
+  },
+  "checks": {
+    "schemaSyntax": {
+      "passed": 7,
+      "total": 7
+    },
+    "toolCatalogSchemaBindings": {
+      "passed": 14,
+      "total": 14
+    },
+    "tests": {
+      "passed": 74,
+      "failed": 0,
+      "coreCases": 28,
+      "acnCases": 46
+    },
+    "runtimeVersions": [
+      "22.23.4",
+      "24.19.0"
+    ],
+    "strictTypecheck": {
+      "status": "PASS",
+      "typescriptVersion": "7.0.2",
+      "options": [
+        "noEmit",
+        "allowImportingTsExtensions",
+        "module=NodeNext",
+        "moduleResolution=NodeNext",
+        "target=ES2022",
+        "strict"
+      ],
+      "entryPoints": [
+        "src/index.ts",
+        "examples/acn-lab.ts",
+        "examples/acn.ts",
+        "tests/acn.test.ts",
+        "tests/tck.test.ts"
+      ]
+    },
+    "examples": {
+      "stadium": "PASS",
+      "lostAcknowledgement": "PASS: apply count remains 1 after reconciliation",
+      "acnCollaboration": "PASS"
+    }
+  },
+  "commands": [
+    "npm run check",
+    "npm exec --yes --package=node@22 -- npm run check",
+    "npm run demo:acn"
+  ],
+  "acnExample": {
+    "scenario": "acn-collaboration",
+    "evidenceScope": "synthetic in-memory model; no live RAN or inference execution",
+    "operations": 6,
+    "groupRevision": 1,
+    "groupStatus": "ADMITTED",
+    "selectedNode": "compute:operator-a/acn/base-station",
+    "predictedOffloadMs": 25,
+    "predictedCost": 0.2,
+    "sharedDataState": "SHARED",
+    "redactionVerified": true,
+    "physicalServiceEffects": 6,
+    "completionBeforeProbe": "BLOCKED",
+    "completionAfterSyntheticProbe": "COMPLETED"
+  },
+  "evidenceBoundary": {
+    "liveNetworkMeasurements": false,
+    "actualInferenceExecuted": false,
+    "distributedStateValidated": false,
+    "probe": "separate logical identity and model-state assertions in the same process",
+    "latency": "prediction from explicitly synthetic inputs"
+  },
+  "validatedSourceSha256": "25cdb5df477227911870812e5919514b510bff35abaa430d82749565dd0a0e23",
+  "fileSha256": {
+    "examples/acn-lab.ts": "95c41bc5342f720254a0d343b1d465524989a15a8087758018679abde3cf7559",
+    "examples/acn.ts": "2d5c3b84425001dc17bf761c9c2f08703a398394ef7e70c3dea2495806122ed9",
+    "examples/lost-ack.ts": "3491f2fa14d5ed6cfbea49763fbb08777b3855c2d765ebca195e497e8f20f0a5",
+    "examples/stadium.ts": "d1b6f3a967d7b2fe512e5e98d970d1711b04f4deee0da8e50b8dcae3e037a61d",
+    "package.json": "8d2e227dcdf97227a1e4311f2b8bd25613b0f94703e0a0db9833ace56860b10d",
+    "schemas/acn-services.schema.json": "49febe9b0a16699798794a7a7484589849f275eb065a337daeb2d191eaff711e",
+    "schemas/action.schema.json": "cc56c475776e2aca9ce1a6797ba2d0c4eebab63c573ec47273f0ddd845f4198e",
+    "schemas/authority-lease.schema.json": "0a3529f354cfef7833f69afb64994cabfebf64753b96b6717b7f2213a658fccd",
+    "schemas/envelope.schema.json": "54242d401bc1e79245837ea49136aa8334078918d9ab925599422e18192fd26e",
+    "schemas/evidence.schema.json": "4d188e321d3caaf4182b390639a1ecec79905f5db6dd2f96f3ab9fea44b0a1d1",
+    "schemas/intent-contract.schema.json": "acb349a3b0650124488f867c307d06b64f7f232d2f544003944d1502c08fef1e",
+    "schemas/policy-artifact.schema.json": "a26395811767018b90f29fe345705de36f07a10e6130ff7dc3582d625348f089",
+    "scripts/check-acn-schema.mjs": "b9d4754517b4c984be9e43fe88ee2045b17d0e88df284926c7a48fa808e25c9d",
+    "scripts/check-schemas.mjs": "3595a8aa381eb030998f58538e37e5fe85722363032e6a60b8684d3cdbe2615d",
+    "src/acn/access.ts": "febcd5d1e16afa2c1c1a83758896b0f4d4e5e97c63c1abce4c2fba90ae98a811",
+    "src/acn/context.ts": "d9e3b5798eb074a3fb2bcad650e24d7d6185904db87bd1dcacb251203e1bfcb1",
+    "src/acn/data.ts": "942dad08a1264b7e95f07103433f2cdbfa3c8bc19a0f7c894aa84de0fe2613c0",
+    "src/acn/directory.ts": "33d0155e84ca7e662e1f119317864d2812859a19ba6c3e1b083a96238db9c798",
+    "src/acn/gateway.ts": "46c7132b10c6ef204dba57c615fea0cffabde6a29407f3e77c35a16728d49d12",
+    "src/acn/mcp.ts": "04b5d663874dc04ce9970c52f20b32c7706a6a47c741b0d96c5786c6f753ac1e",
+    "src/acn/planner.ts": "5c1fdfa82bc9940b45e3bcfc8aa201cc430ba98f1d734db0a075808cfc2f5f4b",
+    "src/acn/resources.ts": "4db8598d811256657e16ce0ad0e5bebdef6f164d037b781b00c655c36f8b4307",
+    "src/acn/services.ts": "ed4cd42444c7995450049fd78ea54a8cff0487d21fea1a8aa464ec4c26b7b830",
+    "src/acn/tools.ts": "58e408054a246319819aeb36d9b7b30ed8c04abe9805cc3789a76496aba38b02",
+    "src/canonical.ts": "6011aad8de2682a3e065b058ab34139e343addcd2bdc94c08cf45ad76d93f2da",
+    "src/contracts.ts": "4715d4999f75a879c76705415778c2776c5055ebbac269298aab33cea66f2585",
+    "src/errors.ts": "4ab3135c91d3e038e7e2067d00e89dccdddb31d7c429a66ff1396a3a037651b1",
+    "src/evidence.ts": "b334f36a4f1edb3690127b252b899433e2c1e466afa2e5184073008810c1a166",
+    "src/executor.ts": "bc794e600543f78e3ee8cd7be078738de6cbe277d6237b7b8e6cb73a17158e06",
+    "src/index.ts": "1c0586351ebe1643237ffcf44dada980bb6ce8a115ecdff80c43bff5ebce1088",
+    "src/lease.ts": "d8322acc26772783353ecbbd101c236c678c96de093b9d5367d78600446584fd",
+    "src/policy.ts": "5ab470eb6594d3d3cbebd83e4bd738942910bc27717ef45a560726ecb05989e0",
+    "src/risk.ts": "2e8d89abbb2a95ddfb7544587396996c02c8791e36dd46e5429bee44c10d2f8a",
+    "src/runtime.ts": "b4ee4cd7cab451af589bba4c82a2b80d2f3cf7d3d27936a4001b9da37f31d823",
+    "src/saga.ts": "61a3132480e16f7ec46d23746893b5572db176837fa06edb40cc87a538e51dd9",
+    "src/scope.ts": "c08c71fa994c604b27fabb326643015c0950fe51f43380f0528bf4272d6f064b",
+    "src/snapshots.ts": "b21f5404bf25f839ee066090af6876448f2f92ec27ec3af10b7640febb40bccb",
+    "src/transactions.ts": "43c3ce23b623a11952b17e782347e1778c8d56e0b22cc521239703815bed1c16",
+    "src/types.ts": "2876bf78044743a222369dee4bbbb81affcb05cce1c6d0de44f9f4762e623304",
+    "src/wire.ts": "67514f2e62b686b2f68e9c147f3c330ce5aeae7d1e774dbf3d7e6eb8ccefc350",
+    "tests/acn.test.ts": "e0af301eec129578214a86da43a541eddddf130412e1e16f1605bffdd8b828e3",
+    "tests/tck.test.ts": "4b97b5ce62d86b02c1046ae7fd225bd68f863e692b29f43e99ad48910d9fb3fe"
+  }
+}

@@ -1,15 +1,18 @@
 {
   "name": "a6gp-reference",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": true,
   "type": "module",
   "description": "A6GP Agent-Native 6G Protocol reference runtime and conformance test kit",
-  "engines": { "node": ">=22.6" },
+  "engines": {
+    "node": ">=22.6"
+  },
   "scripts": {
     "test": "node --experimental-strip-types --test tests/*.test.ts",
     "demo": "node --experimental-strip-types examples/stadium.ts",
     "demo:lost-ack": "node --experimental-strip-types examples/lost-ack.ts",
-    "check:schemas": "node scripts/check-schemas.mjs",
-    "check": "npm run check:schemas && npm test && npm run demo && npm run demo:lost-ack"
+    "check:schemas": "node scripts/check-schemas.mjs && node --experimental-strip-types scripts/check-acn-schema.mjs",
+    "check": "npm run check:schemas && npm test && npm run demo && npm run demo:lost-ack && npm run demo:acn",
+    "demo:acn": "node --experimental-strip-types examples/acn.ts"
   }
 }

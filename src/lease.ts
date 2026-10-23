@@ -8,6 +8,7 @@ export interface LeaseGrantInput {
   leaseId?: string;
   subject: string;
   tenant: string;
+  contractId?: string;
   scope: string[];
   actionSet: string[];
   riskCeiling: RiskClass;
@@ -23,6 +24,7 @@ export class AuthorityRegistry {
 
   registerPrincipal(principal: AgentPrincipal): void {
     invariant(principal.status === "ACTIVE", "INVALID_INPUT", "new principal must be ACTIVE");
+    invariant(!this.principals.has(principal.agentId), "INVALID_INPUT", "principal identity is already registered");
     this.principals.set(principal.agentId, structuredClone(principal));
   }
 
@@ -41,6 +43,8 @@ export class AuthorityRegistry {
   }
 
   grant(input: LeaseGrantInput, now = new Date()): AuthorityLease {
+    invariant(!input.leaseId || !this.leases.has(input.leaseId), "INVALID_INPUT", "lease identity is already registered");
+    invariant(input.contractId === undefined || input.contractId.length > 0, "INVALID_INPUT", "empty task binding");
     const principal = this.principals.get(input.subject);
     invariant(principal?.status === "ACTIVE", "AUTHORITY_MISSING", `inactive or unknown principal ${input.subject}`);
     invariant(principal.tenant === input.tenant, "TENANT_MISMATCH", "principal and lease tenant differ");
@@ -54,6 +58,7 @@ export class AuthorityRegistry {
       parent = this.requireLive(input.parentLeaseId, now);
       invariant(parent.subject !== input.subject || parent.leaseId !== input.leaseId, "INVALID_INPUT", "lease cannot parent itself");
       invariant(parent.tenant === input.tenant, "TENANT_MISMATCH", "parent lease tenant differs");
+      invariant(!parent.contractId || !input.contractId || parent.contractId === input.contractId, "SCOPE_VIOLATION", "delegation changes task binding");
       assertScopeSubset(parent.scope, input.scope);
       invariant(input.actionSet.every((action) => parent!.actionSet.includes(action)), "ACTION_NOT_ALLOWED", "delegated action set exceeds parent authority");
       invariant(riskAtMost(input.riskCeiling, parent.riskCeiling), "RISK_POLICY_REJECTED", "delegated risk exceeds parent ceiling");
@@ -65,6 +70,7 @@ export class AuthorityRegistry {
       leaseId: input.leaseId ?? newId("lease"),
       subject: input.subject,
       tenant: input.tenant,
+      contractId: input.contractId ?? parent?.contractId,
       scope: [...new Set(input.scope)].sort(),
       actionSet: [...new Set(input.actionSet)].sort(),
       riskCeiling: input.riskCeiling,
@@ -108,10 +114,11 @@ export class AuthorityRegistry {
     return structuredClone(lease);
   }
 
-  assertAction(leaseId: string, subject: string, tenant: string, targetScope: string, actionType: string, risk: RiskClass, now = new Date()): AuthorityLease {
+  assertAction(leaseId: string, subject: string, tenant: string, targetScope: string, actionType: string, risk: RiskClass, now = new Date(), contractId?: string): AuthorityLease {
     const lease = this.requireLive(leaseId, now);
     invariant(lease.subject === subject, "AUTHORITY_MISSING", "lease subject differs from action actor");
     invariant(lease.tenant === tenant, "TENANT_MISMATCH", "lease tenant differs from action tenant");
+    invariant(!lease.contractId || lease.contractId === contractId, "SCOPE_VIOLATION", "lease is bound to another task");
     assertTenantScope(tenant, targetScope);
     invariant(scopesCover(lease.scope, targetScope), "SCOPE_VIOLATION", `target ${targetScope} is outside lease scope`);
     invariant(lease.actionSet.includes(actionType), "ACTION_NOT_ALLOWED", `action ${actionType} is not allowed by lease`);

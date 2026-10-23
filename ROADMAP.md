@@ -8,6 +8,18 @@
 - signed JSON reference envelope;
 - Saga and T0/T1 policy-artifact semantics.
 
+## v0.4.1 — optional ACN Services v1 (implemented reference extension)
+
+- identity-bound capability discovery and governed peer endpoint resolution;
+- task groups, directional QoS admission, shared group/compute capacity accounting and degradation detection;
+- joint node/link/memory/deadline/cost admission with explicit release;
+- bounded data capture/redaction/storage/sharing/retention lifecycle;
+- task-bound lease delegation, structured task planning and fourteen capability tools;
+- critical signed network-state context and MCP tools-message bridge;
+- 46 extension tests, source-requirement mapping and reproducible synthetic demo.
+
+Real adapters, production identity, durable/distributed state, learned policies, WAN connectivity and live-network latency validation remain open.
+
 ## v0.5 — network adapters
 
 - O-RAN/srsRAN lab adapter;
