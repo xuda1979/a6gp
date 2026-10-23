@@ -130,6 +130,7 @@ figures/    protocol architecture diagrams
 - [`protocol/A6GP_SPEC_v0.4_BILINGUAL.md`](protocol/A6GP_SPEC_v0.4_BILINGUAL.md) — protocol specification
 - [`reports/A6GP_Protocol_CN_v4.0.docx`](reports/A6GP_Protocol_CN_v4.0.docx) — Chinese technical report
 - [`reports/A6GP_Protocol_EN_v4.0.docx`](reports/A6GP_Protocol_EN_v4.0.docx) — English technical report
+- [`reports/A6GP_Progress_Report_CN_2026-10-23.md`](reports/A6GP_Progress_Report_CN_2026-10-23.md) — current project status and next-stage priorities
 - [`docs/CONFORMANCE.md`](docs/CONFORMANCE.md) — TCK and profile expectations
 - [`docs/IMPLEMENTATION_GUIDE.md`](docs/IMPLEMENTATION_GUIDE.md) — adapter and deployment guidance
 - [`tests/tck.test.ts`](tests/tck.test.ts) — executable safety/conformance tests
