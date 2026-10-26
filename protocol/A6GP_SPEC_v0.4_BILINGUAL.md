@@ -953,3 +953,23 @@ A6GP v0.4 仍是预标准规范。应先完成可执行 schema、TCK、状态机
 7. O-RAN ALLIANCE, *O-RAN ALLIANCE Completed its Specification Release 5*, 8 Jun 2026.
 8. A2A Protocol, Specification v1.0.0, https://a2a-protocol.org/v1.0.0/
 9. Model Context Protocol, Specification 2026-07-28, https://modelcontextprotocol.io/
+
+---
+
+## ACN Services v1 Extension / ACN 服务扩展
+
+**Extension status / 状态:** Optional reference extension, 2026-10-23 / 可选参考扩展。
+
+**EN.** The v0.4 core version is retained. Peers using the task-bound ACN services MUST negotiate `ext.acn.services.v1`; signed tool calls MUST additionally negotiate `ext.acn.network-state.v1` and mark both extensions critical. Older peers that do not understand these extensions MUST reject those messages. Legacy core calls without these extensions and without a task-bound lease retain the existing semantics. This extension does not assert standards-body adoption.
+
+An extended Authority Lease MAY carry `contractId`. A child of a task-bound lease MUST inherit that binding and MUST NOT change it. Every action using a bound lease MUST identify the same contract at prepare, authorize and commit. ACN service operations MUST use explicitly task-bound leases. A principal or lease identifier MUST NOT overwrite an existing registered identity; rotation requires an explicit host identity lifecycle mechanism.
+
+The signed network-state extension contains `targetScope`, `topologyVersion`, `policyVersion`, `preconditionSnapshotHash`, `observedAt` and `source`. A receiver MUST validate freshness against its trusted observations, reject future or stale state, bind the sender/key/tenant and live task revision, and enforce replay protection. The reference service policy uses a 5,000 ms observation-age limit. A tool call MUST bind the same resource scope as its network context. Reference service mutations use R1/T2, an explicit idempotency key and the original action transaction/evidence semantics. This timing label is not a measured deadline guarantee.
+
+Group revision changes MUST atomically replace the prior reservation only after successful admission. Compute and groups MUST account for directional reservations against the same reference link capacity. Data reads MUST satisfy both task authority and data ACL policy. A successful service receipt MUST NOT itself close the task contract; independent evidence remains required. An ambiguous service effect MUST be reconciled before retry or cleanup.
+
+**中文。** 本扩展保留 v0.4 核心版本，以显式协商、关键扩展拒绝和任务绑定租约引入 ACN 服务。旧实现无法识别扩展时必须拒绝消息；原有未绑定任务的核心路径继续保留。扩展租约可带 `contractId`，子租约继承且不能改绑，动作准备、授权及提交均校验同一合同。ACN 服务强制使用显式任务绑定租约。
+
+签名网络上下文必须包含资源、拓扑、策略、前置条件、观测时间和来源，并校验主体密钥、租户、任务版本及重放。参考实现对观测采用 5 秒有效窗口，工具变更采用 R1/T2；这些属于软件校验策略，不表示已测得实时性能。群组和计算共同核算带宽，数据读取同时受任务权限及 ACL 约束。执行回执不能直接完成合同，UNKNOWN 仍按原协议对账。
+
+The detailed reference API, units, security assumptions and implementation boundaries are specified in [ACN_SERVICES.md](../docs/ACN_SERVICES.md); source requirements and tests are mapped in [ACN_REQUIREMENTS_CN.md](../docs/ACN_REQUIREMENTS_CN.md).

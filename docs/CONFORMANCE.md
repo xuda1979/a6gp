@@ -37,3 +37,9 @@ npm run check
 ## What passing does not prove
 
 The current TCK does not prove real 6G interoperability, production security, bounded revocation latency across WAN partitions, safe radio behavior, or standards compliance. Those require external adapters, testbeds, packet/fault injection, key infrastructure, and standards-defined wire bindings.
+
+## ACN Services v1 extension suite
+
+`tests/acn.test.ts` adds 46 cases to the original 28-case TCK (74 total). Coverage includes discovery/descriptor binding; expiry, tenant/domain/task isolation; lease delegation and revocation; group revision/tombstones, directional QoS and degradation; concurrent group admission; network/compute capacity, memory, deadline and cost; data lifecycle/ACL/retention; guarded direct service calls; structured task dependencies and UNKNOWN stopping; MCP tool messages; signed fresh network contexts and replay; and preservation of the external RAN executor path.
+
+`npm run check` also checks catalog/schema consistency for 14 tools and runs `examples/acn.ts`. This is an optional research extension test suite, not a claim of 3GPP, A2A, MCP transport or live-network conformance. The ACN demo uses synthetic state assertions under a separate probe identity; production deployments need independent measurement and storage.
